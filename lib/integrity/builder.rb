@@ -54,7 +54,8 @@ module Integrity
       @build.update(
         :completed_at => Time.now,
         :successful   => @result.success,
-        :output       => @result.output
+        :output       => @result.output,
+        :coverage     => locate_coverage_statistic!
       )
     end
     
@@ -99,5 +100,17 @@ module Integrity
     def commit
       @build.sha1
     end
+
+    def locate_coverage_statistic!
+      line = @build.output.split("\n").last
+      if line.scan(/coverage.*[0-9]+\.[0-9]+%/)
+        percentages = line.scan(/[0-9]+\.[0-9]+%/)
+        if !percentages.empty?
+          return percentages.last.chomp("%").to_f
+        end
+      end
+      return nil
+    end
+
   end
 end
