@@ -37,6 +37,10 @@
           %a{ :href => build_path(build) }
             %strong.build<
               &== Build #{build.sha1_short}
+            - if build.coverage
+              %span.attribution<
+                &== covers
+                %span.coverage #{build.coverage.to_s}%
             %span.attribution<
               &== by #{build.author}, #{pretty_date(build.committed_at)}
 

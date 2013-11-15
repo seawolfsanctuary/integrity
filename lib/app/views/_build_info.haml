@@ -20,6 +20,10 @@
     |
     %span.when{ :title => build.committed_at }<
       &= pretty_date build.committed_at
+    - if build.coverage
+      | covers
+      %span.coverage
+        #{build.coverage.to_s}%
     - if build.project.github?
       |
       %span.github<
