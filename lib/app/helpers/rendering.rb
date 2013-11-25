@@ -47,6 +47,14 @@ module Integrity
         }
       end
 
+      def dropdown_with_titles(name, id, options, selected="")
+        haml_tag(:select, :id => id, :name => name) {
+          options.each { |opt|
+            haml_tag :option, opt[:title], :value => opt[:value], :selected => (opt[:value] == selected)
+          }
+        }
+      end
+
       def notifier_form
         Notifier.available.each_pair { |name, klass|
           haml_concat haml(klass.to_haml, :layout => :notifier, :locals => {

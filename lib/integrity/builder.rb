@@ -54,9 +54,16 @@ module Integrity
       @build.update(
         :completed_at => Time.now,
         :successful   => @result.success,
-        :output       => @result.output,
-        :coverage     => locate_coverage_statistic!
+        :output       => @result.output
       )
+
+      begin
+        coverage_statistic = @build.coverage_provider.locate_coverage_statistic
+        @build.update(:coverage => coverage_statistic) if coverage_statistic
+      rescue Exception => e
+        @logger.error "Error fetching coverage statistic: #{e.message}"
+        @logger.error e.backtrace
+      end
     end
     
     def fail(exception)
@@ -99,17 +106,6 @@ module Integrity
 
     def commit
       @build.sha1
-    end
-
-    def locate_coverage_statistic!
-      line = @build.output.split("\n").last
-      if line.scan(/coverage.*[0-9]+\.[0-9]+%/)
-        percentages = line.scan(/[0-9]+\.[0-9]+%/)
-        if !percentages.empty?
-          return percentages.last.chomp("%").to_f
-        end
-      end
-      return nil
     end
 
   end

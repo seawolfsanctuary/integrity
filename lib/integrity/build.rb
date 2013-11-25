@@ -246,5 +246,10 @@ module Integrity
         }
       }.to_json
     end
+
+    def coverage_provider
+      return Integrity::CoverageProviders::Nil.new(self) if project.coverage_provider == ""
+      return Integrity::CoverageProviders.const_get(project.coverage_provider).new(self)
+    end
   end
 end

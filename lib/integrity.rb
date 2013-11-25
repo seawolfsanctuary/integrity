@@ -49,6 +49,7 @@ require "integrity/payload_builder"
 require "integrity/checkout"
 require "integrity/command_runner"
 require "integrity/builder"
+require "integrity/coverage_provider"
 
 
 DataMapper.finalize
