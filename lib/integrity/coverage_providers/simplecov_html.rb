@@ -1,6 +1,6 @@
 module Integrity
   module CoverageProviders
-    class Rspec2
+    class SimplecovHtml
       attr_reader :build
 
       def initialize(build)

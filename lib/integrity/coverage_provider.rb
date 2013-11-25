@@ -5,7 +5,7 @@ module Integrity
     def self.all
       [
         { :title => "(none)",   :value => "" },
-        { :title => "RSpec v2", :value => "Rspec2" }
+        { :title => "SimpleCov HTML (<= 0.7.x)", :value => "SimplecovHtml" }
       ]
     end
   end
