@@ -27,6 +27,8 @@
             == #{project.human_status}
           - else
             == #{project.human_status} in #{project.human_duration}
+            - if project.last_build.coverage
+              == (covering #{project.last_build.coverage}%)
   %p
     %a{ :href => path("new"), :id => "new" } Add a new project
 

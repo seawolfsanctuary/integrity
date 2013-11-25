@@ -29,6 +29,11 @@
     %input.text#project_artifacts{ :name => "project_data[artifacts]", :type => "text", :value => @project.artifacts }
     %p.explanation Relative paths of files to expose per build. Separate multiple paths with semicolons. Wildcards are allowed (?, *, []) and must be escaped with a backslash if part of a filename.
 
+  %p.normal{ :class => error_class(@project, :coverage_provider) }
+    %label{ :for => "coverage_provider" }<
+      &== Coverage provider
+    - dropdown_with_titles("project_data[coverage_provider]", "project_data[coverage_provider]", Integrity::CoverageProvider.all, @project.coverage_provider)
+
   %p.normal.checkbox
     %label{ :for => "project_public" } Public project
     %input.hidden{ :name => "project_data[public]", :value => "0", :type => "hidden" }
